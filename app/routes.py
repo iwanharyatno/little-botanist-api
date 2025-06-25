@@ -41,8 +41,14 @@ async def identify_plant(image: UploadFile = File(...)):
             timeout=30.0
         )
     gemini_data = response.json()
-    raw_text = gemini_data['candidates'][0]['content']['parts'][0]['text']
+
+    if "candidates" not in gemini_data:
+        print("Gemini response error:", gemini_data)
+        raise httpx.HTTPError(status_code=500, detail="Gagal mendapatkan prediksi dari Gemini")
+
+    raw_text = gemini_data["candidates"][0]["content"]["parts"][0]["text"]
     raw_text = clean_markdown_json(raw_text)
+    
     try:
         structured_data = json.loads(raw_text)
     except json.JSONDecodeError:
