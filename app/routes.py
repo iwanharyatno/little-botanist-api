@@ -29,8 +29,8 @@ async def identify_plant(image: UploadFile = File(...)):
                     }
                 },
                 {
-                "text": "Tolong identifikasi tanaman ini dan berikan penjelasan menarik untuk anak-anak. \
-                        Gunakan format JSON dengan struktur berikut:\n\n{\n  \"plant_name\": string,\n  \"description\": string,\n  \"care_tips\": [string]\n}\n\nJawab hanya dengan format JSON."
+                "text": "Tolong identifikasi tanaman ini dan berikan penjelasan menarik dan menyenangkan untuk anak-anak. \
+                        Gunakan format JSON dengan struktur berikut:\n\n{\n  \"plant_name\": string,\n  \"description\": string,\n  \"care_tips\": [string]\n}\n\nJawab hanya dengan format JSON. Gunakan hanya Bahasa Indonesia yang mudah dipahami anak-anak Indonesia."
                 }
             ]
         }]
