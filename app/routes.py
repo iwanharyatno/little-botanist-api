@@ -1,5 +1,6 @@
 import os
 import httpx
+import magic
 from fastapi import APIRouter, UploadFile, File
 from dotenv import load_dotenv
 from .utils import encode_image_to_base64
@@ -15,6 +16,7 @@ API_KEY = os.getenv("GEMINI_API_KEY")
 @router.post("/identify-plant")
 async def identify_plant(image: UploadFile = File(...)):
     content = await image.read()
+    mime_type = magic.from_buffer(content, mime=True)
     img_base64 = encode_image_to_base64(content)
 
     payload = {
@@ -22,7 +24,7 @@ async def identify_plant(image: UploadFile = File(...)):
             "parts": [
                 {
                     "inlineData": {
-                        "mimeType": image.content_type,
+                        "mimeType": mime_type,
                         "data": img_base64
                     }
                 },
